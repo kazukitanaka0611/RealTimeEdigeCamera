@@ -1,0 +1,279 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2F961599151226F10017CF39 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F961598151226F10017CF39 /* UIKit.framework */; };
+		2F96159B151226F10017CF39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F96159A151226F10017CF39 /* Foundation.framework */; };
+		2F96159D151226F10017CF39 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F96159C151226F10017CF39 /* CoreGraphics.framework */; };
+		2F9615A3151226F10017CF39 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F9615A1151226F10017CF39 /* InfoPlist.strings */; };
+		2F9615A5151226F10017CF39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9615A4151226F10017CF39 /* main.m */; };
+		2F9615A9151226F10017CF39 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9615A8151226F10017CF39 /* AppDelegate.m */; };
+		2F9615AC151226F10017CF39 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9615AB151226F10017CF39 /* ViewController.m */; };
+		2F9615AF151226F10017CF39 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F9615AD151226F10017CF39 /* ViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2F961594151226F10017CF39 /* RealTimeEdigeCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealTimeEdigeCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F961598151226F10017CF39 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2F96159A151226F10017CF39 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2F96159C151226F10017CF39 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2F9615A0151226F10017CF39 /* RealTimeEdigeCamera-Info.plist */ = {isa = PBXFileReference; path = "RealTimeEdigeCamera-Info.plist"; sourceTree = "<group>"; };
+		2F9615A2151226F10017CF39 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2F9615A4151226F10017CF39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2F9615A6151226F10017CF39 /* RealTimeEdigeCamera-Prefix.pch */ = {isa = PBXFileReference; path = "RealTimeEdigeCamera-Prefix.pch"; sourceTree = "<group>"; };
+		2F9615A7151226F10017CF39 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		2F9615A8151226F10017CF39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2F9615AA151226F10017CF39 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		2F9615AB151226F10017CF39 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2F9615AE151226F10017CF39 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2F961591151226F10017CF39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F961599151226F10017CF39 /* UIKit.framework in Frameworks */,
+				2F96159B151226F10017CF39 /* Foundation.framework in Frameworks */,
+				2F96159D151226F10017CF39 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2F961589151226F00017CF39 = {
+			isa = PBXGroup;
+			children = (
+				2F96159E151226F10017CF39 /* RealTimeEdigeCamera */,
+				2F961597151226F10017CF39 /* Frameworks */,
+				2F961595151226F10017CF39 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2F961595151226F10017CF39 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2F961594151226F10017CF39 /* RealTimeEdigeCamera.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2F961597151226F10017CF39 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2F961598151226F10017CF39 /* UIKit.framework */,
+				2F96159A151226F10017CF39 /* Foundation.framework */,
+				2F96159C151226F10017CF39 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2F96159E151226F10017CF39 /* RealTimeEdigeCamera */ = {
+			isa = PBXGroup;
+			children = (
+				2F9615A7151226F10017CF39 /* AppDelegate.h */,
+				2F9615A8151226F10017CF39 /* AppDelegate.m */,
+				2F9615AA151226F10017CF39 /* ViewController.h */,
+				2F9615AB151226F10017CF39 /* ViewController.m */,
+				2F9615AD151226F10017CF39 /* ViewController.xib */,
+				2F96159F151226F10017CF39 /* Supporting Files */,
+			);
+			path = RealTimeEdigeCamera;
+			sourceTree = "<group>";
+		};
+		2F96159F151226F10017CF39 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2F9615A0151226F10017CF39 /* RealTimeEdigeCamera-Info.plist */,
+				2F9615A1151226F10017CF39 /* InfoPlist.strings */,
+				2F9615A4151226F10017CF39 /* main.m */,
+				2F9615A6151226F10017CF39 /* RealTimeEdigeCamera-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2F961593151226F10017CF39 /* RealTimeEdigeCamera */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2F9615B2151226F10017CF39 /* Build configuration list for PBXNativeTarget "RealTimeEdigeCamera" */;
+			buildPhases = (
+				2F961590151226F10017CF39 /* Sources */,
+				2F961591151226F10017CF39 /* Frameworks */,
+				2F961592151226F10017CF39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RealTimeEdigeCamera;
+			productName = RealTimeEdigeCamera;
+			productReference = 2F961594151226F10017CF39 /* RealTimeEdigeCamera.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2F96158B151226F00017CF39 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 2F96158E151226F00017CF39 /* Build configuration list for PBXProject "RealTimeEdigeCamera" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2F961589151226F00017CF39;
+			productRefGroup = 2F961595151226F10017CF39 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2F961593151226F10017CF39 /* RealTimeEdigeCamera */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2F961592151226F10017CF39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F9615A3151226F10017CF39 /* InfoPlist.strings in Resources */,
+				2F9615AF151226F10017CF39 /* ViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2F961590151226F10017CF39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F9615A5151226F10017CF39 /* main.m in Sources */,
+				2F9615A9151226F10017CF39 /* AppDelegate.m in Sources */,
+				2F9615AC151226F10017CF39 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2F9615A1151226F10017CF39 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2F9615A2151226F10017CF39 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2F9615AD151226F10017CF39 /* ViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2F9615AE151226F10017CF39 /* en */,
+			);
+			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2F9615B0151226F10017CF39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2F9615B1151226F10017CF39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2F9615B3151226F10017CF39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RealTimeEdigeCamera/RealTimeEdigeCamera-Prefix.pch";
+				INFOPLIST_FILE = "RealTimeEdigeCamera/RealTimeEdigeCamera-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2F9615B4151226F10017CF39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RealTimeEdigeCamera/RealTimeEdigeCamera-Prefix.pch";
+				INFOPLIST_FILE = "RealTimeEdigeCamera/RealTimeEdigeCamera-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2F96158E151226F00017CF39 /* Build configuration list for PBXProject "RealTimeEdigeCamera" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F9615B0151226F10017CF39 /* Debug */,
+				2F9615B1151226F10017CF39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2F9615B2151226F10017CF39 /* Build configuration list for PBXNativeTarget "RealTimeEdigeCamera" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F9615B3151226F10017CF39 /* Debug */,
+				2F9615B4151226F10017CF39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2F96158B151226F00017CF39 /* Project object */;
+}
