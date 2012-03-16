@@ -17,6 +17,8 @@
 #pragma mark - Orignal Method
 - (void)setupAVCapture
 {
+    NSLog(@"========== setupAVCapture start ==========");
+    
     NSError *error = nil;
     
     session = [[AVCaptureSession alloc] init];
@@ -40,6 +42,7 @@
                             [NSNumber numberWithInt:kCVPixelFormatType_32BGRA] 
                                                        forKey:(id)kCVPixelBufferPixelFormatTypeKey];
     
+    /*
     previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
     [previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
     [previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
@@ -48,6 +51,9 @@
     [rootLayer setMasksToBounds:YES];
     [previewLayer setFrame:[rootLayer bounds]];
     [rootLayer addSublayer:previewLayer];
+    */
+    
+    NSLog(@"========== setupAVCapture end ==========");
     
     if (!session.running) {
         [session startRunning];
@@ -56,6 +62,8 @@
 
 - (IplImage *)convertToIplImageFromCGImage:(CGImageRef)image
 {
+    NSLog(@"========== convertToIplImageFromCGImage start ==========");
+    
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     
     IplImage *iplImage = cvCreateImage(cvSize(CGImageGetWidth(image), CGImageGetHeight(image)), IPL_DEPTH_8U, 4);
@@ -77,11 +85,15 @@
     cvCvtColor(iplImage, ret, CV_RGBA2BGR);
     cvReleaseImage(&iplImage);
     
+    NSLog(@"========== convertToIplImageFromCGImage end ==========");
+    
     return ret;
 }
 
 - (CGImageRef)convertToCGImageFromIplImage:(IplImage *)image
 {
+    NSLog(@"========== convertToCGImageFromIplImage start ==========");
+    
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     
     NSData *data = [NSData dataWithBytes:image->imageData length:image->imageSize];
@@ -100,11 +112,15 @@
                                        false,
                                        kCGRenderingIntentDefault);
     
+    NSLog(@"========== convertToCGImageFromIplImage end ==========");
+    
     return cgImage;
 }
 
 - (CGImageRef)convertToCGImageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
+    NSLog(@"========== convertToCGImageFromSampleBuffer start ==========");
+    
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     
     CVPixelBufferLockBaseAddress(imageBuffer, 0);
@@ -132,11 +148,15 @@
     
     CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
     
+    NSLog(@"========== convertToCGImageFromSampleBuffer end ==========");
+    
     return cgImage;
 }
 
 - (CGImageRef)convertEdgeFilter:(CGImageRef)inImage
 {
+    NSLog(@"========== convertEdgeFilter start ==========");
+    
     IplImage *srcImage = [self convertToIplImageFromCGImage:inImage];
     
     IplImage *grayScaleImage = cvCreateImage(cvGetSize(srcImage), IPL_DEPTH_8U, 1);
@@ -160,13 +180,19 @@
     cvReleaseImage(&destImage);
     cvReleaseImage(&colorImage);
     
+     NSLog(@"========== convertEdgeFilter end ==========");
+    
     return effectedImage;
 }
 
 #pragma mark - IBAction
 - (IBAction)takePhotoAction:(id)sender
 {
-    UIImageWriteToSavedPhotosAlbum(previewView.image, self, nil, nil);
+     NSLog(@"========== takePhotoAction start ==========");
+    
+    UIImageWriteToSavedPhotosAlbum(previewImageView.image, self, nil, nil);
+    
+    NSLog(@"========== takePhotoAction end ==========");
 }
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
@@ -174,12 +200,28 @@
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer 
        fromConnection:(AVCaptureConnection *)connection
 {
+    NSLog(@"========== captureOutput start ==========");
+    
+    CGImageRef inImage = [self convertToCGImageFromSampleBuffer:sampleBuffer];
+    
+    CGImageRef filteredImage = [self convertEdgeFilter:inImage];
+    
+    UIImage *displayIamge = [UIImage imageWithCGImage:filteredImage];
+    
+    CGImageRelease(filteredImage);
+    CGImageRelease(inImage);
+    
+    [previewImageView performSelectorOnMainThread:@selector(setImage:) 
+                                       withObject:displayIamge 
+                                    waitUntilDone:YES];
+    /*
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        
-        CGImageRef cgImage = [self convertToCGImageFromSampleBuffer:sampleBuffer];
         
         [self convertEdgeFilter:cgImage];
     });
+    */
+    
+    NSLog(@"========== captureOutput start ==========");
 }
 
 - (void)viewDidLoad
@@ -191,7 +233,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     [self setupAVCapture];
     
-    NSLog(@"========== viewDidLoad end ==========");
+    NSLog(@"========== viewDidLoad end ============");
 }
 
 - (void)viewDidUnload
@@ -211,7 +253,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [session release]; session = nil;
     [previewLayer release]; previewLayer = nil;
     
-    [previewView release]; previewView = nil;
+    [previewImageView release]; previewImageView = nil;
     
     [super dealloc];
 }

@@ -20,7 +20,7 @@
     AVCaptureSession *session;
     AVCaptureVideoPreviewLayer *previewLayer;
     
-    IBOutlet UIImageView *previewView;
+    IBOutlet UIImageView *previewImageView;
 }
 
 - (IBAction)takePhotoAction:(id)sender;
