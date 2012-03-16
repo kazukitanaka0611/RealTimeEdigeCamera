@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+#import <AVFoundation/AVFoundation.h>
+
+#import <opencv2/imgproc/imgproc_c.h>
+
 @interface ViewController : UIViewController
+    <AVCaptureVideoDataOutputSampleBufferDelegate>
+{
+@private
+    
+    AVCaptureSession *session;
+    AVCaptureVideoPreviewLayer *previewLayer;
+    
+    IBOutlet UIImageView *previewView;
+}
+
+- (IBAction)takePhotoAction:(id)sender;
 
 @end
