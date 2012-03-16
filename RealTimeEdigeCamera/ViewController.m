@@ -10,6 +10,15 @@
 
 @interface ViewController ()
 
+- (void)setupAVCapture;
+- (IplImage *)convertToIplImageFromCGImage:(CGImageRef)image;
+- (CGImageRef)convertToCGImageFromIplImage:(IplImage *)image;
+- (CGImageRef)convertToCGImageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+- (CGImageRef)convertEdgeFilter:(CGImageRef)inImage;
+- (IBAction)takePhotoAction:(id)sender;
+- (void)captureOutput:(AVCaptureOutput *)captureOutput 
+didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer 
+       fromConnection:(AVCaptureConnection *)connection;
 @end
 
 @implementation ViewController
@@ -251,7 +260,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 - (void)dealloc
 {
     [session release]; session = nil;
-    [previewLayer release]; previewLayer = nil;
+    //[previewLayer release]; previewLayer = nil;
     
     [previewImageView release]; previewImageView = nil;
     
