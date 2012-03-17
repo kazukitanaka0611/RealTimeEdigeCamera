@@ -50,18 +50,16 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     output.videoSettings = [NSDictionary dictionaryWithObject:
                             [NSNumber numberWithInt:kCVPixelFormatType_32BGRA] 
                                                        forKey:(id)kCVPixelBufferPixelFormatTypeKey];
-    
     /*
     previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
     [previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
     [previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
     
-    CALayer *rootLayer = [previewView layer];
+    CALayer *rootLayer = [previewImageView layer];
     [rootLayer setMasksToBounds:YES];
     [previewLayer setFrame:[rootLayer bounds]];
     [rootLayer addSublayer:previewLayer];
     */
-    
     NSLog(@"========== setupAVCapture end ==========");
     
     if (!session.running) {
@@ -130,6 +128,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     NSLog(@"========== convertToCGImageFromSampleBuffer start ==========");
     
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     
     CVPixelBufferLockBaseAddress(imageBuffer, 0);
@@ -156,6 +156,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     CGColorSpaceRelease(colorSpace);
     
     CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
+    
+    [pool drain];
     
     NSLog(@"========== convertToCGImageFromSampleBuffer end ==========");
     
@@ -219,16 +221,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     CGImageRelease(filteredImage);
     CGImageRelease(inImage);
-    
+
+    /*
     [previewImageView performSelectorOnMainThread:@selector(setImage:) 
                                        withObject:displayIamge 
                                     waitUntilDone:YES];
-    /*
+     */
+    
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         
-        [self convertEdgeFilter:cgImage];
+        [previewImageView setImage:displayIamge];
     });
-    */
     
     NSLog(@"========== captureOutput start ==========");
 }
