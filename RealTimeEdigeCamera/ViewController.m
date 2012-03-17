@@ -217,7 +217,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     CGImageRef filteredImage = [self convertEdgeFilter:inImage];
     
-    //UIImage *displayIamge = [UIImage imageWithCGImage:filteredImage];
+    UIImage *displayIamge = [UIImage imageWithCGImage:filteredImage];
 
     /*
     [previewImageView performSelectorOnMainThread:@selector(setImage:) 
@@ -227,7 +227,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         
-        [previewImageView setImage:[UIImage imageWithCGImage:filteredImage]];
+        [previewImageView setImage:displayIamge];
     });
     
     CGImageRelease(filteredImage);
