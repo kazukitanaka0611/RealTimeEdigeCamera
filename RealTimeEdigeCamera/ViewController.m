@@ -217,7 +217,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     CGImageRef filteredImage = [self convertEdgeFilter:inImage];
     
-    UIImage *displayIamge = [UIImage imageWithCGImage:filteredImage];
+    UIImage *displayIamge = [UIImage imageWithCGImage:filteredImage scale:1.0f orientation:UIImageOrientationRight];
 
     /*
     [previewImageView performSelectorOnMainThread:@selector(setImage:) 
@@ -256,7 +256,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
 }
 
 #pragma mark - dealloc
