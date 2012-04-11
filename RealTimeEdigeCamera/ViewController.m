@@ -10,15 +10,6 @@
 
 @interface ViewController ()
 
-- (void)setupAVCapture;
-- (IplImage *)convertToIplImageFromCGImage:(CGImageRef)image;
-- (CGImageRef)convertToCGImageFromIplImage:(IplImage *)image;
-- (CGImageRef)convertToCGImageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer;
-- (CGImageRef)convertEdgeFilter:(CGImageRef)inImage;
-- (IBAction)takePhotoAction:(id)sender;
-- (void)captureOutput:(AVCaptureOutput *)captureOutput 
-didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer 
-       fromConnection:(AVCaptureConnection *)connection;
 @end
 
 @implementation ViewController
@@ -67,34 +58,30 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
 }
 
-- (IplImage *)convertToIplImageFromCGImage:(CGImageRef)image
+- (IplImage *)convertToIplImageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer 
 {
-    NSLog(@"========== convertToIplImageFromCGImage start ==========");
+    IplImage *iplimage = 0;
+    if (sampleBuffer) {
+        CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+        CVPixelBufferLockBaseAddress(imageBuffer, 0);
+        
+        // get information of the image in the buffer
+        uint8_t *bufferBaseAddress = (uint8_t *)CVPixelBufferGetBaseAddressOfPlane(imageBuffer, 0);
+        size_t bufferWidth = CVPixelBufferGetWidth(imageBuffer);
+        size_t bufferHeight = CVPixelBufferGetHeight(imageBuffer);
+        
+        // create IplImage
+        if (bufferBaseAddress) {
+            iplimage = cvCreateImage(cvSize(bufferWidth, bufferHeight), IPL_DEPTH_8U, 4);
+            iplimage->imageData = (char*)bufferBaseAddress;
+        }
+        
+        // release memory
+        CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
+    }
     
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     
-    IplImage *iplImage = cvCreateImage(cvSize(CGImageGetWidth(image), CGImageGetHeight(image)), IPL_DEPTH_8U, 4);
-    
-    CGContextRef contextRef = CGBitmapContextCreate(iplImage->imageData,
-                                                    iplImage->width,
-                                                    iplImage->height,
-                                                    iplImage->depth,
-                                                    iplImage->widthStep,
-                                                    colorSpace,
-                                                    kCGImageAlphaPremultipliedLast | kCGBitmapByteOrderDefault);
-    
-    CGContextDrawImage(contextRef, CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), image);
-    
-    CGContextRelease(contextRef);
-    CGColorSpaceRelease(colorSpace);
-    
-    IplImage *ret = cvCreateImage(cvGetSize(iplImage), IPL_DEPTH_8U, 3);
-    cvCvtColor(iplImage, ret, CV_RGBA2BGR);
-    cvReleaseImage(&iplImage);
-    
-    NSLog(@"========== convertToIplImageFromCGImage end ==========");
-    
-    return ret;
+    return iplimage;
 }
 
 - (CGImageRef)convertToCGImageFromIplImage:(IplImage *)image
@@ -124,51 +111,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     return cgImage;
 }
 
-- (CGImageRef)convertToCGImageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer
-{
-    NSLog(@"========== convertToCGImageFromSampleBuffer start ==========");
-    
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    
-    CVPixelBufferLockBaseAddress(imageBuffer, 0);
-    
-    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
-    size_t width = CVPixelBufferGetWidth(imageBuffer);
-    size_t height = CVPixelBufferGetHeight(imageBuffer);
-    
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    
-    void *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
-    
-    CGContextRef newContext = CGBitmapContextCreate(baseAddress,
-                                                    width,
-                                                    height,
-                                                    8, 
-                                                    bytesPerRow,
-                                                    colorSpace,
-                                                    kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
-    
-    CGImageRef cgImage = CGBitmapContextCreateImage(newContext);
-    
-    CGContextRelease(newContext);
-    CGColorSpaceRelease(colorSpace);
-    
-    CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
-    
-    [pool drain];
-    
-    NSLog(@"========== convertToCGImageFromSampleBuffer end ==========");
-    
-    return cgImage;
-}
-
-- (CGImageRef)convertEdgeFilter:(CGImageRef)inImage
+- (CGImageRef)convertEdgeFilter:(IplImage *)srcImage
 {
     NSLog(@"========== convertEdgeFilter start ==========");
-    
-    IplImage *srcImage = [self convertToIplImageFromCGImage:inImage];
     
     IplImage *grayScaleImage = cvCreateImage(cvGetSize(srcImage), IPL_DEPTH_8U, 1);
     
@@ -213,7 +158,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     NSLog(@"========== captureOutput start ==========");
     
-    CGImageRef inImage = [self convertToCGImageFromSampleBuffer:sampleBuffer];
+    IplImage *inImage = [self convertToIplImageFromSampleBuffer:sampleBuffer];
     
     CGImageRef filteredImage = [self convertEdgeFilter:inImage];
     
@@ -231,7 +176,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     });
     
     CGImageRelease(filteredImage);
-    CGImageRelease(inImage);
+    //CGImageRelease(inImage);
 
     NSLog(@"========== captureOutput start ==========");
 }
