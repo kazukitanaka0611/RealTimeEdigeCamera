@@ -12,6 +12,8 @@
 
 #import <opencv2/imgproc/imgproc_c.h>
 
+#import <QuartzCore/QuartzCore.h>
+
 @interface ViewController : UIViewController
     <AVCaptureVideoDataOutputSampleBufferDelegate>
 {
@@ -19,6 +21,7 @@
     
     AVCaptureSession *session;
     AVCaptureVideoPreviewLayer *previewLayer;
+    CALayer *cpreviewLayer;
     
     IBOutlet UIImageView *previewImageView;
 }

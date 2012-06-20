@@ -32,7 +32,16 @@
     AVCaptureVideoDataOutput *output = [[[AVCaptureVideoDataOutput alloc] init] autorelease];
     [session addOutput:output];
     
-    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
+    cpreviewLayer = [CALayer layer];
+    cpreviewLayer.bounds = CGRectMake(0, 0, previewImageView.frame.size.width,
+                                      previewImageView.frame.size.height);
+    cpreviewLayer.position = CGPointMake(self.view.frame.size.width/2., self.view.frame.size.height/2.);
+    cpreviewLayer.affineTransform = CGAffineTransformMakeRotation(M_PI/2);
+    [previewImageView.layer addSublayer:cpreviewLayer];
+    
+    [session commitConfiguration];
+    
+    dispatch_queue_t queue = dispatch_queue_create("myQueue", DISPATCH_QUEUE_SERIAL);
     [output setAlwaysDiscardsLateVideoFrames:YES];
     [output setSampleBufferDelegate:self queue:queue];
     
@@ -41,6 +50,7 @@
     output.videoSettings = [NSDictionary dictionaryWithObject:
                             [NSNumber numberWithInt:kCVPixelFormatType_32BGRA] 
                                                        forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+    
     /*
     previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
     [previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
@@ -164,18 +174,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     CGImageRef filteredImage = [self convertEdgeFilter:inImage];
     
-    UIImage *displayIamge = [UIImage imageWithCGImage:filteredImage scale:1.0f orientation:UIImageOrientationRight];
+//    UIImage *displayIamge = [UIImage imageWithCGImage:filteredImage scale:1.0f orientation:UIImageOrientationRight];
 
-    /*
-    [previewImageView performSelectorOnMainThread:@selector(setImage:) 
-                                       withObject:displayIamge 
+    [cpreviewLayer performSelectorOnMainThread:@selector(setContents:) 
+                                       withObject:(id)filteredImage 
                                     waitUntilDone:YES];
-     */
     
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
-        
-        [previewImageView setImage:displayIamge];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^(void) {
+//        
+//        cpreviewLayer.contents = (id)filteredImage;
+//        //[previewImageView setImage:displayIamge];
+//    });
     
     CGImageRelease(filteredImage);
     //CGImageRelease(inImage);
