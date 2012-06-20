@@ -20,8 +20,9 @@
 @private
     
     AVCaptureSession *session;
-    AVCaptureVideoPreviewLayer *previewLayer;
-    CALayer *cpreviewLayer;
+    //AVCaptureVideoPreviewLayer *previewLayer;
+    
+    CALayer* customLayer;
     
     IBOutlet UIImageView *previewImageView;
 }

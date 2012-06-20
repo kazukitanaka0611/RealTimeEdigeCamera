@@ -32,13 +32,6 @@
     AVCaptureVideoDataOutput *output = [[[AVCaptureVideoDataOutput alloc] init] autorelease];
     [session addOutput:output];
     
-    cpreviewLayer = [CALayer layer];
-    cpreviewLayer.bounds = CGRectMake(0, 0, previewImageView.frame.size.width,
-                                      previewImageView.frame.size.height);
-    cpreviewLayer.position = CGPointMake(self.view.frame.size.width/2., self.view.frame.size.height/2.);
-    cpreviewLayer.affineTransform = CGAffineTransformMakeRotation(M_PI/2);
-    [previewImageView.layer addSublayer:cpreviewLayer];
-    
     [session commitConfiguration];
     
     dispatch_queue_t queue = dispatch_queue_create("myQueue", DISPATCH_QUEUE_SERIAL);
@@ -51,16 +44,22 @@
                             [NSNumber numberWithInt:kCVPixelFormatType_32BGRA] 
                                                        forKey:(id)kCVPixelBufferPixelFormatTypeKey];
     
-    /*
-    previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
-    [previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
-    [previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+    customLayer = [CALayer layer];
+    customLayer.frame = previewImageView.bounds;
+    customLayer.transform = CATransform3DRotate(CATransform3DIdentity, M_PI/2.0f, 0, 0, 1);
+    customLayer.contentsGravity = kCAGravityResizeAspectFill;
+    [previewImageView.layer addSublayer:customLayer];
     
-    CALayer *rootLayer = [previewImageView layer];
-    [rootLayer setMasksToBounds:YES];
-    [previewLayer setFrame:[rootLayer bounds]];
-    [rootLayer addSublayer:previewLayer];
-    */
+//    previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
+//    [previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
+//    [previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+//    [previewImageView.layer addSublayer:previewLayer];
+    
+//    CALayer *rootLayer = [previewImageView layer];
+//    [rootLayer setMasksToBounds:YES];
+//    [previewLayer setFrame:[rootLayer bounds]];
+//    [rootLayer addSublayer:previewLayer];
+
     NSLog(@"========== setupAVCapture end ==========");
     
     if (!session.running) {
@@ -176,7 +175,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
 //    UIImage *displayIamge = [UIImage imageWithCGImage:filteredImage scale:1.0f orientation:UIImageOrientationRight];
 
-    [cpreviewLayer performSelectorOnMainThread:@selector(setContents:) 
+    [customLayer performSelectorOnMainThread:@selector(setContents:) 
                                        withObject:(id)filteredImage 
                                     waitUntilDone:YES];
     
