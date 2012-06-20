@@ -158,6 +158,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     NSLog(@"========== captureOutput start ==========");
     
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
     IplImage *inImage = [self convertToIplImageFromSampleBuffer:sampleBuffer];
     
     CGImageRef filteredImage = [self convertEdgeFilter:inImage];
@@ -178,6 +180,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     CGImageRelease(filteredImage);
     //CGImageRelease(inImage);
 
+    [pool release];
+    
     NSLog(@"========== captureOutput start ==========");
 }
 
