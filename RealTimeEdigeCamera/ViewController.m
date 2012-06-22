@@ -155,7 +155,16 @@
 {
      NSLog(@"========== takePhotoAction start ==========");
     
-    UIImageWriteToSavedPhotosAlbum(previewImageView.image, self, nil, nil);
+    UIGraphicsBeginImageContext(customLayer.bounds.size);
+    [customLayer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *displayIamge = [UIImage imageWithCGImage:image.CGImage 
+                                                scale:1.0f 
+                                          orientation:UIImageOrientationRight];
+    UIGraphicsEndImageContext();
+    UIImageWriteToSavedPhotosAlbum(displayIamge, self, nil, nil);
+    
+    //UIImageWriteToSavedPhotosAlbum(previewImageView.image, self, nil, nil);
     
     NSLog(@"========== takePhotoAction end ==========");
 }
