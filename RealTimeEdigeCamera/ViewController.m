@@ -155,7 +155,8 @@
 {
      NSLog(@"========== takePhotoAction start ==========");
     
-    UIGraphicsBeginImageContext(customLayer.bounds.size);
+    UIGraphicsBeginImageContext(CGSizeMake(previewImageView.frame.size.height, 
+                                           previewImageView.frame.size.width));
     [customLayer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
     UIImage *displayIamge = [UIImage imageWithCGImage:image.CGImage 
